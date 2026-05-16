@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.MukundaKatta/headers",
+  "description": "MCP server: parse and stringify HTTP header blocks.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/MukundaKatta/headers-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/MukundaKatta/headers-mcp",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@mukundakatta/headers-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
