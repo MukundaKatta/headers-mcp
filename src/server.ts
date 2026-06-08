@@ -7,6 +7,8 @@
  * `set-cookie` which always returns an array even when there's only one.
  */
 
+import { pathToFileURL } from 'node:url';
+
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -103,7 +105,7 @@ function errorResult(message: string) {
   return { isError: true, content: [{ type: 'text', text: message }] };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   process.stderr.write(`headers MCP server v${VERSION} ready on stdio\n`);

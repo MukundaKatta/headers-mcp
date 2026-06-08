@@ -42,3 +42,31 @@ test('stringify round-trips', () => {
   const back = parse(s);
   assert.deepEqual(back, orig);
 });
+
+test('stringify emits a single line for a string value', () => {
+  assert.equal(stringify({ 'content-type': 'text/html' }), 'content-type: text/html');
+});
+
+test('stringify uses CRLF between lines', () => {
+  assert.equal(stringify({ a: '1', b: '2' }), 'a: 1\r\nb: 2');
+});
+
+test('parse keeps the value after the first colon only', () => {
+  const r = parse('Location: http://example.com/x:y');
+  assert.equal(r['location'], 'http://example.com/x:y');
+});
+
+test('parse trims surrounding whitespace from name and value', () => {
+  const r = parse('  X-Foo  :   bar  ');
+  assert.equal(r['x-foo'], 'bar');
+});
+
+test('parse skips blank and colon-less lines', () => {
+  const r = parse('\nnot-a-header\nA: 1\n   \n');
+  assert.deepEqual(r, { a: '1' });
+});
+
+test('parse keeps empty header values', () => {
+  const r = parse('X-Empty:');
+  assert.equal(r['x-empty'], '');
+});
